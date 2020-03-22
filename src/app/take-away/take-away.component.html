@@ -1,0 +1,69 @@
+<div class="button-section">
+    <ng-container *ngFor="let num of displayNums">
+        <button mat-raised-button aria-label="cloud" (click)="onAddNumbers(num)">
+            -{{num}}
+        </button>
+    </ng-container>
+</div>
+<mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
+    Shuffle
+</mat-slide-toggle>
+
+<div>
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers">
+            -{{choseNum}}
+        </mat-chip>
+    </mat-chip-list>
+</div>
+
+<button mat-raised-button aria-label="cloud" (click)="onStart()">
+    start
+</button>
+
+<div class="entry" *ngIf="start">
+    <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
+        <div>
+            section {{i}}
+        </div>
+        <mat-grid-list cols=" 2" rowHeight="6:1">
+            <mat-grid-tile *ngFor="let entry of section.numberEntries">
+                <div fxLayout="row" fxLayoutAlign="start stretch" class="card-block">
+                    <div class="formula">
+                        {{entry.num1}}
+                    </div>
+                    <div class="formula">
+                        -
+                    </div>
+                    <div class="formula">
+                        {{entry.num2}}
+                    </div>
+                    <div class="formula">
+                        =
+                    </div>
+
+                    <mat-form-field class="answer">
+                        <input matInput [(ngModel)]="entry.answer">
+                    </mat-form-field>
+
+                    <div *ngIf="isSubmitted">
+                        <mat-icon *ngIf="check(entry)" class="material-icons md-42">check</mat-icon>
+                        <mat-icon *ngIf="!check(entry)" class="material-icons md-42">cancel</mat-icon>
+                    </div>
+                </div>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start stretch" class="submit-section">
+        <button class="submit"  mat-raised-button aria-label="cloud"
+            (click)="onSubmit()">
+            submit
+        </button>
+        <button class="submit" *ngIf="sections && sections.length>0" mat-raised-button aria-label="cloud"
+            (click)="onClear()">
+            clear
+        </button>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+.entry {
+  width: auto;
+  overflow-y: auto;
+  height: 100%;
+
+  .card-block {
+    width: 250px;
+    height: 60px;
+    line-height: 60px;
+  }
+
+  .formula {
+    margin-right: 10px;
+  }
+
+  .answer {
+    width: 60px;
+  }
+
+  .submit-section {
+    width: 100%;
+  }
+}

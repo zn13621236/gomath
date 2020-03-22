@@ -1,0 +1,38 @@
+<div class="left-nav">
+    <button mat-button aria-label="cloud" class="block" [class.selected]="selectedMenu==='minus'" routerLink="/plus"
+        (click)="onClickMenu('home')">
+        <div fxLayout="column" fxLayoutAlign="start">
+            <mat-icon class="material-icons md-42">home</mat-icon>
+            <div class="menu-text">
+                Home
+            </div>
+        </div>
+    </button>
+    <button mat-button aria-label="cloud" class="block" [class.selected]="selectedMenu==='minus'" routerLink="/plus"
+        (click)="onClickMenu('plus')">
+        <div fxLayout="column" fxLayoutAlign="start">
+            <mat-icon class="material-icons md-42">exposure_plus_1</mat-icon>
+            <div class="menu-text">
+                plus
+            </div>
+        </div>
+    </button>
+    <button mat-button aria-label="cloud" class="block" [class.selected]="selectedMenu==='minus'" routerLink="/minus"
+        (click)="onClickMenu('minus')">
+        <div fxLayout="column" fxLayoutAlign="start">
+            <mat-icon class="material-icons md-42">android</mat-icon>
+            <div class="menu-text">
+                minus
+            </div>
+        </div>
+    </button>
+    <button mat-button aria-label="cloud" class="block" [class.selected]="selectedMenu==='minus'" routerLink="/minus"
+    (click)="onClickMenu('minus')">
+    <div fxLayout="column" fxLayoutAlign="start">
+        <mat-icon class="material-icons md-42">cancel_presentation</mat-icon>
+        <div class="menu-text">
+            multiply
+        </div>
+    </div>
+</button>
+</div>

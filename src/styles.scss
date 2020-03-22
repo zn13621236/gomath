@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.font-large {
+  font-size: 18px;
+  color: #273139;
+}
+
+.font-medium {
+  font-size: 14px;
+}
+
+.font-small {
+  font-size: 10px;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.font-normal {
+  font-weight: normal;
+}
