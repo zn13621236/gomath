@@ -21,6 +21,8 @@ export class TakeAwayComponent implements OnInit {
   public sections: SectionEntry[] = [];
   public chosenNumbers: number[] = [];
 
+  public panelOpenState: boolean = false;
+
   public start: boolean = false;
 
   public isSubmitted: boolean = false;
@@ -38,6 +40,10 @@ export class TakeAwayComponent implements OnInit {
 
   public onRemoveNumbers(num: number) {
     this.chosenNumbers.splice(this.chosenNumbers.indexOf(num), 1);
+  }
+
+  public setStep() {
+    
   }
 
   public onStart() {

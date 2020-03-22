@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatGridListModule,
     MatSlideToggleModule,
     MatChipsModule,
+    MatExpansionModule,
     FormsModule,
     FlexLayoutModule
   ],

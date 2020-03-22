@@ -1,25 +1,38 @@
-<div class="button-section" fxLayout="row" fxLayoutAlign="space-evenly stretch">
-    <ng-container *ngFor="let num of displayNums">
-        <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num)">
-            -{{num}}
-        </button>
-    </ng-container>
-</div>
-<mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
-    Shuffle
-</mat-slide-toggle>
-
-<div>
-    <mat-chip-list aria-label="Fish selection">
-        <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
-            -{{choseNum}}
-        </mat-chip>
-    </mat-chip-list>
-</div>
-
-<button mat-raised-button aria-label="cloud" (click)="onStart()">
-    start
-</button>
+<mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="!start" (opened)="setStep()" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Create a practice
+            </mat-panel-title>
+            <mat-panel-description>
+                Choose focus area
+                <mat-icon>settings</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="button-section" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+            <ng-container *ngFor="let num of displayNums">
+                <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num)">
+                    -{{num}}
+                </button>
+            </ng-container>
+        </div>
+        <mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
+            Shuffle
+        </mat-slide-toggle>
+        <div>
+            <mat-chip-list aria-label="Fish selection">
+                <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
+                    -{{choseNum}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+        <mat-action-row>
+            <button mat-raised-button aria-label="cloud" (click)="onStart()">
+                start
+            </button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
 
 <div class="entry" *ngIf="start">
     <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
@@ -49,8 +62,8 @@
                     </mat-form-field>
 
                     <div *ngIf="isSubmitted">
-                        <mat-icon *ngIf="check(entry)" class="material-icons md-42">check</mat-icon>
-                        <mat-icon *ngIf="!check(entry)" class="material-icons md-42">cancel</mat-icon>
+                        <mat-icon *ngIf="check(entry)" class="material-icons md-42">done</mat-icon>
+                        <mat-icon *ngIf="!check(entry)" class="material-icons md-42">clear</mat-icon>
                     </div>
                 </div>
             </mat-grid-tile>
