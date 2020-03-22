@@ -1,8 +1,9 @@
 .canvas {
   height: 100%;
-  overflow: hidden;
 
   .main {
     width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }

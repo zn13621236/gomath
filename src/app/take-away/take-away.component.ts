@@ -34,15 +34,17 @@ export class TakeAwayComponent implements OnInit {
 
   public onAddNumbers(num: number) {
     this.chosenNumbers.push(num);
+  }
 
-
+  public onRemoveNumbers(num: number) {
+    this.chosenNumbers.splice(this.chosenNumbers.indexOf(num), 1);
   }
 
   public onStart() {
     this.sections = [];
     for (let num of this.chosenNumbers) {
       let entries: NumberEntry[] = [];
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 10; i++) {
         let num1 = num + i;
         entries.push({ num1, num2: num, answer: null });
       }

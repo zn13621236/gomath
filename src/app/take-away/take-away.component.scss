@@ -1,7 +1,10 @@
 .entry {
   width: auto;
-  overflow-y: auto;
-  height: 100%;
+
+  .divider {
+    border-bottom: 1px solid #6E706B;
+    width: 40%;
+  }
 
   .card-block {
     width: 250px;
