@@ -16,16 +16,17 @@
                 </button>
             </ng-container>
         </div>
-        <mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
-            Shuffle
-        </mat-slide-toggle>
-        <div>
+
+        <div class="chip-section">
             <mat-chip-list aria-label="Fish selection">
                 <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
                     -{{choseNum}}
                 </mat-chip>
             </mat-chip-list>
         </div>
+        <mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
+            Shuffle
+        </mat-slide-toggle>
         <mat-action-row>
             <button mat-raised-button aria-label="cloud" (click)="onStart()">
                 start
@@ -36,12 +37,12 @@
 
 <div class="entry" *ngIf="start">
     <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
-        <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
+        <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
             <div class="divider"></div>
-            <div> section {{i+1}}</div>
+            <div class="bold font-large"> section {{i+1}}</div>
             <div class="divider"></div>
         </div>
-        <mat-grid-list cols=" 2" rowHeight="6:1">
+        <mat-grid-list cols="2" rowHeight="6:1">
             <mat-grid-tile *ngFor="let entry of section.numberEntries">
                 <div fxLayout="row" fxLayoutAlign="start stretch" class="card-block">
                     <div class="formula">

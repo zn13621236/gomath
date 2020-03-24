@@ -12,6 +12,7 @@ export class LeftNavComponent implements OnInit {
 
   ngOnInit() {
   }
+  
   public onClickMenu(item: string) {
     this.selectedMenu = item;
   }

@@ -43,7 +43,7 @@ export class TakeAwayComponent implements OnInit {
   }
 
   public setStep() {
-    
+
   }
 
   public onStart() {
