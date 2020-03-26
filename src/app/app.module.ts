@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeftNavComponent } from './left-nav/left-nav.component';
-import { TakeAwayComponent } from './take-away/take-away.component';
+import { SetupComponent } from './setup/setup.component';
 import { PlusComponent } from './plus/plus.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,12 +17,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
     AppComponent,
     LeftNavComponent,
-    TakeAwayComponent,
+    SetupComponent,
     PlusComponent
   ],
   imports: [
@@ -37,6 +39,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSlideToggleModule,
     MatChipsModule,
     MatExpansionModule,
+    MatRadioModule,
+    MatButtonToggleModule,
     FormsModule,
     FlexLayoutModule
   ],

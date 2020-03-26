@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TakeAwayComponent } from './take-away.component';
+import { SetupComponent } from './setup.component';
 
 describe('TakeAwayComponent', () => {
-  let component: TakeAwayComponent;
-  let fixture: ComponentFixture<TakeAwayComponent>;
+  let component: SetupComponent;
+  let fixture: ComponentFixture<SetupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TakeAwayComponent ]
+      declarations: [ SetupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TakeAwayComponent);
+    fixture = TestBed.createComponent(SetupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

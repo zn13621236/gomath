@@ -9,10 +9,16 @@
                 <mat-icon>settings</mat-icon>
             </mat-panel-description>
         </mat-expansion-panel-header>
+
+        <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="operator">
+            <mat-button-toggle *ngFor="let operator of displayOperators" [value]="operator">
+                {{operator}}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
         <div class="button-section" fxLayout="row" fxLayoutAlign="space-evenly stretch">
-            <ng-container *ngFor="let num of displayNums">
+            <ng-container *ngFor="let num of displayButtonEntry">
                 <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num)">
-                    -{{num}}
+                    {{num.name}}
                 </button>
             </ng-container>
         </div>
@@ -20,7 +26,7 @@
         <div class="chip-section">
             <mat-chip-list aria-label="Fish selection">
                 <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
-                    -{{choseNum}}
+                    {{choseNum.operator}}({{choseNum.name}})
                 </mat-chip>
             </mat-chip-list>
         </div>
@@ -49,7 +55,7 @@
                         {{entry.num1}}
                     </div>
                     <div class="formula">
-                        -
+                        {{entry.operator}}
                     </div>
                     <div class="formula">
                         {{entry.num2}}

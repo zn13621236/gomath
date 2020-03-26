@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TakeAwayComponent } from './take-away/take-away.component';
+import { SetupComponent } from './setup/setup.component';
 
 
 const routes: Routes = [
-  { path: 'minus', component: TakeAwayComponent },
+  { path: 'setup', component: SetupComponent },
   {
     path: '',
-    redirectTo: 'minus',
+    redirectTo: 'setup',
     pathMatch: 'full'
   },
 ];
