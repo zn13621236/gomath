@@ -6,8 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeftNavComponent } from './left-nav/left-nav.component';
-import { SetupComponent } from './setup/setup.component';
-import { PlusComponent } from './plus/plus.component';
+import { SetupComponent } from './pages/setup/setup.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,13 +18,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { TestComponent } from './pages/test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LeftNavComponent,
     SetupComponent,
-    PlusComponent
+    TestComponent
   ],
   imports: [
     BrowserModule,

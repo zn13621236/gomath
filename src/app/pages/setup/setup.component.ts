@@ -1,23 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { randomNumber } from '../shared/utilities';
-
-enum Operator {
-  Plus = '+',
-  Minus = '-',
-  Times = 'x',
-  Divide = '/'
-}
-
-export interface NumberEntry {
-  num1: number;
-  num2: number;
-  operator: Operator;
-  answer: number;
-}
-
-export interface SectionEntry {
-  numberEntries: NumberEntry[];
-}
+import { randomNumber } from '../../shared/utilities';
+import { SectionEntry, NumberEntry, Operator, EntryServiceService } from '../../shared/services/entry-service.service';
+import { Router } from '@angular/router';
 
 export interface DisplayButtonEntry {
   name: string;
@@ -47,7 +31,7 @@ export class SetupComponent implements OnInit {
     { name: '100-1000', value: 12 },
   ];
 
-  public displayOperators: string[] = ['+', '-', 'X', '/']
+  public displayOperators: string[] = ['+', '-', 'X', '/'];
 
   public sections: SectionEntry[] = [];
 
@@ -55,15 +39,14 @@ export class SetupComponent implements OnInit {
 
   public panelOpenState: boolean = false;
 
-  public start: boolean = false;
-
-  public isSubmitted: boolean = false;
-
   public shouldShuffle: boolean = false;
 
   public operator: string = '-';
 
-  constructor() { }
+  constructor(
+    public sectionService: EntryServiceService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -78,12 +61,8 @@ export class SetupComponent implements OnInit {
     this.chosenNumbers.splice(this.chosenNumbers.indexOf(num), 1);
   }
 
-  public setStep() {
-
-  }
-
   public onStart() {
-    this.sections = [];
+    let sections = [];
     for (let num of this.chosenNumbers) {
       let entries: NumberEntry[] = [];
 
@@ -106,32 +85,10 @@ export class SetupComponent implements OnInit {
         this.shuffle(entries);
       }
 
-      this.sections.push({ numberEntries: entries })
+      sections.push({ numberEntries: entries });
+      this.sectionService.setSections(sections);
     }
-    this.start = true;
-  }
-
-  public onSubmit() {
-    this.isSubmitted = true;
-  }
-
-  public onClear() {
-    this.isSubmitted = false;
-  }
-
-  public check(entry: NumberEntry): boolean {
-    let res: boolean = (entry.answer as number) == (entry.num1 - entry.num2);
-
-    switch (entry.operator) {
-      case Operator.Plus:
-        return (entry.answer as number) == (entry.num1 + entry.num2);
-      case Operator.Divide:
-        return (entry.answer as number) == (entry.num1 - entry.num2);
-      case Operator.Times:
-        return (entry.answer as number) == (entry.num1 / entry.num2);
-      default:
-        return (entry.answer as number) == (entry.num1 - entry.num2);
-    }
+    this.router.navigate(['/test']);
   }
 
   private prepareMinus(num: DisplayButtonEntry, entries: NumberEntry[]): NumberEntry[] {

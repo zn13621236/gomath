@@ -1,0 +1,47 @@
+<div class="entry">
+    <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
+            <div class="divider"></div>
+            <div class="bold font-large"> section {{i+1}}</div>
+            <div class="divider"></div>
+        </div>
+        <mat-grid-list cols="2" rowHeight="6:1">
+            <mat-grid-tile *ngFor="let entry of section.numberEntries">
+                <div fxLayout="row" fxLayoutAlign="start stretch" class="card-block">
+                    <div fxLayout="row" fxLayoutAlign="start stretch" class="question">
+                        <div class="formula">
+                            {{entry.num1}}
+                        </div>
+                        <div class="formula">
+                            {{entry.operator}}
+                        </div>
+                        <div class="formula">
+                            {{entry.num2}}
+                        </div>
+                        <div class="formula">
+                            =
+                        </div>
+                        <mat-form-field class="answer">
+                            <input matInput [(ngModel)]="entry.answer" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="isSubmitted">
+                        <mat-icon *ngIf="check(entry)" class="material-icons md-42 done-icon result">thumb_up</mat-icon>
+                        <mat-icon *ngIf="!check(entry)" class="material-icons md-42 wrong-icon result">clear</mat-icon>
+                    </div>
+                </div>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="submit-section">
+        <button class="submit" mat-raised-button aria-label="cloud" (click)="onSubmit()">
+            submit
+        </button>
+        <button class="submit" *ngIf="sections && sections.length>0" mat-raised-button aria-label="cloud"
+            (click)="onClear()">
+            clear
+        </button>
+    </div>
+</div>

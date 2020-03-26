@@ -1,0 +1,42 @@
+<!-- <mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="!start" (opened)="setStep()" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Create a practice
+            </mat-panel-title>
+            <mat-panel-description>
+                Choose focus area
+                <mat-icon>settings</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header> -->
+
+<mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="operator">
+    <mat-button-toggle *ngFor="let operator of displayOperators" [value]="operator">
+        {{operator}}
+    </mat-button-toggle>
+</mat-button-toggle-group>
+<div class="button-section" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+    <ng-container *ngFor="let num of displayButtonEntry">
+        <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num)">
+            {{num.name}}
+        </button>
+    </ng-container>
+</div>
+
+<div class="chip-section">
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
+            {{choseNum.operator}}({{choseNum.name}})
+        </mat-chip>
+    </mat-chip-list>
+</div>
+<mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
+    Shuffle
+</mat-slide-toggle>
+<!-- <mat-action-row> -->
+<button mat-raised-button aria-label="cloud" (click)="onStart()">
+    start
+</button>
+<!-- </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion> -->
