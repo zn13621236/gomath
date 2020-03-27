@@ -1,3 +1,31 @@
+<mat-card class="example-card" *ngIf="isSubmitted">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Report card</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+
+    <!-- maybe a chart here -->
+    <mat-card-content>
+        <div>
+            <div>
+                Correct: {{result.right}}
+            </div>
+            <div>
+                Wrong: {{result.wrong}}
+            </div>
+            <div>
+                Duration: {{result.duration}}
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="onCorrection()">Correction</button>
+        <button mat-button (click)="onRedo()">Redo</button>
+    </mat-card-actions>
+</mat-card>
+
 <div class="entry">
     <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
         <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
@@ -36,12 +64,8 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="submit-section">
-        <button class="submit" mat-raised-button aria-label="cloud" (click)="onSubmit()">
+        <button class="submit" mat-raised-button color="primary" aria-label="cloud" [disabled]="isSubmitted" (click)="onSubmit()">
             submit
-        </button>
-        <button class="submit" *ngIf="sections && sections.length>0" mat-raised-button aria-label="cloud"
-            (click)="onClear()">
-            clear
         </button>
     </div>
 </div>

@@ -16,16 +16,20 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { TestComponent } from './pages/test/test.component';
+import { StartTestComponent } from './pages/test/start-test/start-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LeftNavComponent,
     SetupComponent,
-    TestComponent
+    TestComponent,
+    StartTestComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,8 @@ import { TestComponent } from './pages/test/test.component';
     MatExpansionModule,
     MatRadioModule,
     MatButtonToggleModule,
+    MatDialogModule,
+    MatCardModule,
     FormsModule,
     FlexLayoutModule
   ],
