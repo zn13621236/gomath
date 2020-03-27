@@ -1,15 +1,3 @@
-<!-- <mat-accordion class="example-headers-align">
-    <mat-expansion-panel [expanded]="!start" (opened)="setStep()" hideToggle>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                Create a practice
-            </mat-panel-title>
-            <mat-panel-description>
-                Choose focus area
-                <mat-icon>settings</mat-icon>
-            </mat-panel-description>
-        </mat-expansion-panel-header> -->
-
 <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="operator">
     <mat-button-toggle *ngFor="let operator of displayOperators" [value]="operator">
         {{operator}}
@@ -33,10 +21,6 @@
 <mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
     Shuffle
 </mat-slide-toggle>
-<!-- <mat-action-row> -->
 <button mat-raised-button aria-label="cloud" (click)="onStart()">
     start
 </button>
-<!-- </mat-action-row>
-    </mat-expansion-panel>
-</mat-accordion> -->

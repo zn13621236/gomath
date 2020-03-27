@@ -5,6 +5,7 @@ import { StartTestComponent } from './start-test/start-test.component';
 
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 export interface Result {
   right: number;
@@ -68,17 +69,35 @@ export class TestComponent implements OnInit {
   }
 
   public onCorrection() {
-    this.sectionService.setSections([{ numberEntries: this.wrongEntries }]);
-    location.reload();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: { confirmText: 'Are you sure to start new practice with only wronged questions.' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.sectionService.setSections([{ numberEntries: this.wrongEntries }]);
+        location.reload();
+      }
+    });
   }
 
   public onRedo() {
-    for (const section of this.sections) {
-      for (const entry of section.numberEntries) {
-        entry.answer = null;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: { confirmText: 'Are you sure to start new practice with only wronged questions.' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        for (const section of this.sections) {
+          for (const entry of section.numberEntries) {
+            entry.answer = null;
+          }
+          this.isSubmitted = false;
+        }
       }
-      this.isSubmitted = false;
-    }
+    });
   }
 
   private summarize() {

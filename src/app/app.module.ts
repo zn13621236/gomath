@@ -22,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TestComponent } from './pages/test/test.component';
 import { StartTestComponent } from './pages/test/start-test/start-test.component';
+import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { StartTestComponent } from './pages/test/start-test/start-test.component
     LeftNavComponent,
     SetupComponent,
     TestComponent,
-    StartTestComponent
+    StartTestComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
