@@ -26,9 +26,9 @@ export class SetupComponent implements OnInit {
     { name: '7', value: 7 },
     { name: '8', value: 8 },
     { name: '9', value: 9 },
-    { name: '1-10', value: 10 },
-    { name: '10-100', value: 11 },
-    { name: '100-1000', value: 12 },
+    { name: '(1-10)', value: 10 },
+    { name: '(10-100)', value: 11 },
+    { name: '(100-1000)', value: 12 },
   ];
 
   public displayOperators: string[] = ['+', '-', 'X', '/'];
@@ -41,8 +41,6 @@ export class SetupComponent implements OnInit {
 
   public shouldShuffle: boolean = false;
 
-  public operator: string = '-';
-
   constructor(
     public sectionService: EntryServiceService,
     private router: Router
@@ -51,9 +49,9 @@ export class SetupComponent implements OnInit {
   ngOnInit() {
   }
 
-  public onAddNumbers(num: DisplayButtonEntry) {
+  public onAddNumbers(num: DisplayButtonEntry, operator: string) {
     let newNum = { ...num };
-    newNum.operator = this.convertOperator(this.operator);
+    newNum.operator = this.convertOperator(operator);
     this.chosenNumbers.push(newNum);
   }
 
@@ -293,7 +291,7 @@ export class SetupComponent implements OnInit {
 
   private convertOperator(input: string) {
     switch (input) {
-      case 'X':
+      case 'x':
         return Operator.Times;
       case '-':
         return Operator.Minus;

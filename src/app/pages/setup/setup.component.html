@@ -1,26 +1,89 @@
-<mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="operator">
-    <mat-button-toggle *ngFor="let operator of displayOperators" [value]="operator">
-        {{operator}}
-    </mat-button-toggle>
-</mat-button-toggle-group>
-<div class="button-section" fxLayout="row" fxLayoutAlign="space-evenly stretch">
-    <ng-container *ngFor="let num of displayButtonEntry">
-        <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num)">
-            {{num.name}}
-        </button>
-    </ng-container>
-</div>
+<div class="header font-hero bold">Create practice</div>
 
-<div class="chip-section">
-    <mat-chip-list aria-label="Fish selection">
-        <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
-            {{choseNum.operator}}({{choseNum.name}})
-        </mat-chip>
-    </mat-chip-list>
+<div class="setup-content">
+    <div>Select focus area below</div>
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>add</mat-icon>
+                Plus
+            </ng-template>
+            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
+                <ng-container *ngFor="let num of displayButtonEntry">
+                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, '+')">
+                        +{{num.name}}
+                    </button>
+                </ng-container>
+            </div>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>remove</mat-icon>
+                Minus
+            </ng-template>
+            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
+                <ng-container *ngFor="let num of displayButtonEntry">
+                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, '-')">
+                        -{{num.name}}
+                    </button>
+                </ng-container>
+            </div>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>clear</mat-icon>
+                Multiply
+            </ng-template>
+
+            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
+                <ng-container *ngFor="let num of displayButtonEntry">
+                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, 'x')">
+                        X{{num.name}}
+                    </button>
+                </ng-container>
+            </div>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <img src="assets/divide.png" class="divide">
+                Divide
+            </ng-template>
+
+            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
+                <ng-container *ngFor="let num of displayButtonEntry">
+                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, '/')">
+                        <img src="assets/divide.png" class="divide-button">{{num.name}}
+                    </button>
+                </ng-container>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+    <!-- <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="operator">
+        <mat-button-toggle *ngFor="let operator of displayOperators" [value]="operator">
+            {{operator}}
+        </mat-button-toggle>
+    </mat-button-toggle-group> -->
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <div>Selected focus area:</div>
+        <div class="chip-section">
+            <mat-chip-list aria-label="Fish selection">
+                <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
+                    {{choseNum.operator}}{{choseNum.name}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+    </div>
+
+    <div class="shuffle-bar">
+        <mat-slide-toggle [(ngModel)]="shouldShuffle" labelPosition='before'>
+            Do you want to shuffle questions?
+        </mat-slide-toggle>
+    </div>
+
+    <button mat-flat-button color="primary" aria-label="cloud" (click)="onStart()">
+        Start
+        <mat-icon>play_circle_outline</mat-icon>
+    </button>
 </div>
-<mat-slide-toggle [(ngModel)]="shouldShuffle" class="example-margin">
-    Shuffle
-</mat-slide-toggle>
-<button mat-raised-button aria-label="cloud" (click)="onStart()">
-    start
-</button>
