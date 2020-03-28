@@ -1,10 +1,19 @@
 <div class="left-nav">
-    <button mat-button aria-label="cloud" class="block" [class.selected]="selectedMenu==='minus'" routerLink="/setup"
+    <button mat-button aria-label="cloud" class="block" [class.selected]="selectedMenu==='home'" routerLink="/setup"
         (click)="onClickMenu('home')">
         <div fxLayout="column" fxLayoutAlign="start">
             <mat-icon class="material-icons md-42 menu-icon">home</mat-icon>
             <div class="menu-text font-small">
                 Home
+            </div>
+        </div>
+    </button>
+    <button mat-button aria-label="cloud" class="block" [class.selected]="selectedMenu==='about'" routerLink="/about"
+        (click)="onClickMenu('about')">
+        <div fxLayout="column" fxLayoutAlign="start">
+            <mat-icon class="material-icons md-42 menu-icon">face</mat-icon>
+            <div class="menu-text font-small">
+                About us
             </div>
         </div>
     </button>

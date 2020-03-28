@@ -24,6 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TestComponent } from './pages/test/test.component';
 import { StartTestComponent } from './pages/test/start-test/start-test.component';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ConfirmationDialogComponent } from './shared/components/confirmation-di
     SetupComponent,
     TestComponent,
     StartTestComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
