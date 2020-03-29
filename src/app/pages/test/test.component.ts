@@ -20,6 +20,8 @@ export interface Result {
 })
 export class TestComponent implements OnInit {
   public sections: SectionEntry[] = [];
+  public currentIndex: number = 0;
+
   public wrongEntries: NumberEntry[] = [];
   public isSubmitted: boolean = false;
   public startTime: any = moment();
@@ -42,6 +44,14 @@ export class TestComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.startTime = moment();
     });
+  }
+
+  public onClickNext() {
+    this.currentIndex += 1;
+  }
+
+  public onClickBack() {
+    this.currentIndex -= 1;
   }
 
   public onSubmit() {
@@ -76,7 +86,7 @@ export class TestComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.sectionService.setSections([{ numberEntries: this.wrongEntries }]);
+        this.sectionService.setSections([{ numberEntries: this.wrongEntries, shuffle: true, minimize: false, showWidget: false }]);
         location.reload();
       }
     });

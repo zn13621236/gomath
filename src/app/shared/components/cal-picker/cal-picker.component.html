@@ -1,0 +1,68 @@
+<div class="cal-widget">
+    <button mat-button (click)="onToggleDisplay()" [class]="showWidget? 'highlight': ''">
+        <mat-icon>playlist_add</mat-icon>
+    </button>
+
+    <div *ngIf="showWidget" class="expanding-area mat-elevation-z8" [@simpleFadeAnimation]="'in'">
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>add</mat-icon>
+                    Plus
+                </ng-template>
+                <div class="tab-content">
+                    <ng-container *ngFor="let num of displayButtonEntry">
+                        <button mat-button color="primary" class="number-button" (click)="onAddNumbers(num, '+')">
+                            +{{num.name}}
+                        </button>
+                    </ng-container>
+                </div>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>remove</mat-icon>
+                    Minus
+                </ng-template>
+                <div class="tab-content">
+                    <ng-container *ngFor="let num of displayButtonEntry">
+                        <button mat-button color="primary" class="number-button" aria-label="cloud"
+                            (click)="onAddNumbers(num, '-')">
+                            -{{num.name}}
+                        </button>
+                    </ng-container>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>clear</mat-icon>
+                    Multiply
+                </ng-template>
+
+                <div class="tab-content">
+                    <ng-container *ngFor="let num of displayButtonEntry">
+                        <button mat-button color="primary" class="number-button" aria-label="cloud"
+                            (click)="onAddNumbers(num, 'x')">
+                            X{{num.name}}
+                        </button>
+                    </ng-container>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <img src="assets/divide.png" class="divide">
+                    Divide
+                </ng-template>
+
+                <div class="tab-content">
+                    <ng-container *ngFor="let num of displayButtonEntry">
+                        <button mat-button color="primary" class="number-button" aria-label="cloud"
+                            (click)="onAddNumbers(num, '/')">
+                            <img src="assets/divide.png" class="divide-button">{{num.name}}
+                        </button>
+                    </ng-container>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

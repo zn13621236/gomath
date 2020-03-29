@@ -24,7 +24,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TestComponent } from './pages/test/test.component';
 import { StartTestComponent } from './pages/test/start-test/start-test.component';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { CalPickerComponent } from './shared/components/cal-picker/cal-picker.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
     TestComponent,
     StartTestComponent,
     ConfirmationDialogComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    CalPickerComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +57,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
     MatDialogModule,
     MatCardModule,
     MatTabsModule,
+    MatTooltipModule,
+    MatToolbarModule,
     FormsModule,
     FlexLayoutModule
   ],

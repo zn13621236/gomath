@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { randomNumber } from '../../shared/utilities';
+import { randomNumber, shuffle } from '../../shared/utilities';
 import { SectionEntry, NumberEntry, Operator, EntryServiceService } from '../../shared/services/entry-service.service';
 import { Router } from '@angular/router';
+import { PickerEntry } from 'src/app/shared/components/cal-picker/cal-picker.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 export interface DisplayButtonEntry {
   name: string;
@@ -16,22 +19,9 @@ export interface DisplayButtonEntry {
 })
 export class SetupComponent implements OnInit {
 
-  public displayButtonEntry: DisplayButtonEntry[] = [
-    { name: '1', value: 1 },
-    { name: '2', value: 2 },
-    { name: '3', value: 3 },
-    { name: '4', value: 4 },
-    { name: '5', value: 5 },
-    { name: '6', value: 6 },
-    { name: '7', value: 7 },
-    { name: '8', value: 8 },
-    { name: '9', value: 9 },
-    { name: '(1-10)', value: 10 },
-    { name: '(10-100)', value: 11 },
-    { name: '(100-1000)', value: 12 },
-  ];
-
-  public displayOperators: string[] = ['+', '-', 'X', '/'];
+  public shouldShowNew: boolean = false;
+  public curIndex: number = 0;
+  public newSection: SectionEntry;
 
   public sections: SectionEntry[] = [];
 
@@ -43,16 +33,94 @@ export class SetupComponent implements OnInit {
 
   constructor(
     public sectionService: EntryServiceService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
   }
 
-  public onAddNumbers(num: DisplayButtonEntry, operator: string) {
-    let newNum = { ...num };
-    newNum.operator = this.convertOperator(operator);
-    this.chosenNumbers.push(newNum);
+  public onShuffle(index: number, value: boolean) {
+
+    let curSection = this.sections[index];
+    curSection.shuffle = value;
+    if (curSection.numberEntries.length > 0) {
+      if (curSection.shuffle) {
+        shuffle(curSection.numberEntries);
+      } else {
+        curSection.numberEntries = this.prepareNumberEntry({ name: '', value: curSection.numberEntries[0].num2, operator: curSection.numberEntries[0].operator })
+      }
+    }
+  }
+
+  public onMinimize(index: number) {
+    this.sections[index].minimize = true;
+    this.sections[index].showWidget = false;
+  }
+
+  public onMaximize(index: number) {
+    this.sections[index].minimize = false;
+  }
+
+  public onRemoveSection(index: number) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: { confirmText: 'Are you sure to remove this section' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.sections.splice(index, 1);
+      }
+    });
+  }
+
+  public shouldDisableStart(): boolean {
+    let result: boolean = false;
+
+    if (this.sections.length == 0) return true;
+
+    for (const section of this.sections) {
+      if (section.numberEntries.length === 0) {
+        result = true;
+      }
+    }
+
+    return result;
+  }
+
+  public onAddNewSection() {
+    for (let section of this.sections) {
+      section.minimize = true;
+      section.showWidget = false;
+    }
+
+    this.sections.push({ numberEntries: [], shuffle: false, minimize: false, showWidget: true });
+  }
+
+  public onCopySection(index: number) {
+    for (let section of this.sections) {
+      section.minimize = true;
+      section.showWidget = false;
+    }
+
+    let newSection: SectionEntry = { numberEntries: [...{ ...this.sections[index] }.numberEntries], shuffle: false, minimize: false, showWidget: true }
+    this.sections.push(newSection);
+  }
+
+  public onAddNumbers(entry: PickerEntry) {
+    const num = entry.buttonEntry;
+    let currentSection: SectionEntry = this.sections[entry.index];
+
+    let entries: NumberEntry[] = this.prepareNumberEntry(num);
+
+    if (currentSection.shuffle) {
+      shuffle(entries);
+    }
+
+    currentSection.numberEntries = entries;
+
+    this.sections[entry.index] = currentSection;
   }
 
   public onRemoveNumbers(num: DisplayButtonEntry) {
@@ -60,33 +128,37 @@ export class SetupComponent implements OnInit {
   }
 
   public onStart() {
-    let sections = [];
-    for (let num of this.chosenNumbers) {
-      let entries: NumberEntry[] = [];
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: { confirmText: 'Click Yes when you are done setting up the practice.' }
+    });
 
-      switch (num.operator) {
-        case Operator.Divide:
-          entries = this.prepareDivide(num, entries);
-          break;
-        case Operator.Plus:
-          entries = this.preparePlusAndTimes(num, entries);
-          break;
-        case Operator.Times:
-          entries = this.preparePlusAndTimes(num, entries);
-          break;
-        default:
-          entries = this.prepareMinus(num, entries);
-          break;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.sectionService.setSections(this.sections);
+        this.router.navigate(['/test']);
       }
+    });
+  }
 
-      if (this.shouldShuffle) {
-        this.shuffle(entries);
-      }
+  private prepareNumberEntry(num: DisplayButtonEntry): NumberEntry[] {
+    let entries: NumberEntry[] = [];
 
-      sections.push({ numberEntries: entries });
-      this.sectionService.setSections(sections);
+    switch (num.operator) {
+      case Operator.Divide:
+        entries = this.prepareDivide(num, entries);
+        break;
+      case Operator.Plus:
+        entries = this.preparePlusAndTimes(num, entries);
+        break;
+      case Operator.Times:
+        entries = this.preparePlusAndTimes(num, entries);
+        break;
+      default:
+        entries = this.prepareMinus(num, entries);
+        break;
     }
-    this.router.navigate(['/test']);
+    return entries;
   }
 
   private prepareMinus(num: DisplayButtonEntry, entries: NumberEntry[]): NumberEntry[] {
@@ -283,22 +355,5 @@ export class SetupComponent implements OnInit {
       }
     }
     return entries;
-  }
-
-  private shuffle(array) {
-    array.sort(() => Math.random() - 0.5);
-  }
-
-  private convertOperator(input: string) {
-    switch (input) {
-      case 'x':
-        return Operator.Times;
-      case '-':
-        return Operator.Minus;
-      case '/':
-        return Operator.Divide;
-      default:
-        return Operator.Plus;
-    }
   }
 }

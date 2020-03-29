@@ -1,88 +1,74 @@
 <div class="header font-hero bold">Create practice</div>
 
-<div class="setup-content">
-    <div>Select focus area below</div>
-    <mat-tab-group>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>add</mat-icon>
-                Plus
-            </ng-template>
-            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
-                <ng-container *ngFor="let num of displayButtonEntry">
-                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, '+')">
-                        +{{num.name}}
-                    </button>
-                </ng-container>
-            </div>
-        </mat-tab>
-
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>remove</mat-icon>
-                Minus
-            </ng-template>
-            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
-                <ng-container *ngFor="let num of displayButtonEntry">
-                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, '-')">
-                        -{{num.name}}
-                    </button>
-                </ng-container>
-            </div>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>clear</mat-icon>
-                Multiply
-            </ng-template>
-
-            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
-                <ng-container *ngFor="let num of displayButtonEntry">
-                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, 'x')">
-                        X{{num.name}}
-                    </button>
-                </ng-container>
-            </div>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <img src="assets/divide.png" class="divide">
-                Divide
-            </ng-template>
-
-            <div class="tab-content" fxLayout="row" fxLayoutAlign="space-evenly start">
-                <ng-container *ngFor="let num of displayButtonEntry">
-                    <button mat-stroked-button color="primary" aria-label="cloud" (click)="onAddNumbers(num, '/')">
-                        <img src="assets/divide.png" class="divide-button">{{num.name}}
-                    </button>
-                </ng-container>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
-
-    <!-- <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="operator">
-        <mat-button-toggle *ngFor="let operator of displayOperators" [value]="operator">
-            {{operator}}
-        </mat-button-toggle>
-    </mat-button-toggle-group> -->
-    <div fxLayout="row" fxLayoutAlign="space-evenly center">
-        <div>Selected focus area:</div>
-        <div class="chip-section">
-            <mat-chip-list aria-label="Fish selection">
-                <mat-chip color="primary" *ngFor="let choseNum of chosenNumbers" (click)="onRemoveNumbers(choseNum)">
-                    {{choseNum.operator}}{{choseNum.name}}
-                </mat-chip>
-            </mat-chip-list>
+<div class="section-block">
+    <div *ngFor="let section of sections;let i = index" class="section">
+        <mat-toolbar>
+            <mat-toolbar-row class="tool-bar" [class.tool-bar-complete]="section.numberEntries.length>0"
+                [class.tool-bar-start]="section.numberEntries.length===0">
+                <div>
+                    Section {{i + 1}}:
+                </div>
+                <div class="section-title">
+                    {{section.numberEntries.length>0 ? section.numberEntries[0].operator : ''}}
+                    {{section.numberEntries.length>0 ? section.numberEntries[0].num2 : ''}}
+                </div>
+                <span class="example-spacer"></span>
+                <app-cal-picker [index]="i" [showWidget]="section.showWidget" (onPick)="onAddNumbers($event)">
+                </app-cal-picker>
+                <!-- <mat-slide-toggle labelPosition='before' (click)="onShuffle(i, !section.shuffle)">
+                    <mat-icon>shuffle</mat-icon>
+                </mat-slide-toggle> -->
+                <button mat-button aria-label="cloud" matTooltip="Shuffle question order"
+                    [disabled]="section.numberEntries.length===0" (click)="onShuffle(i, !section.shuffle)">
+                    <mat-icon>shuffle</mat-icon>
+                </button>
+                <button mat-button aria-label="cloud" matTooltip="Remove section" (click)="onRemoveSection(i)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+                <button mat-button aria-label="cloud" matTooltip="Add a new section that is the same as this one" (click)="onCopySection(i)">
+                    <mat-icon>file_copy</mat-icon>
+                </button>
+                <button *ngIf="!section.minimize" mat-button aria-label="cloud" matTooltip="Minimize this section"
+                    (click)="onMinimize(i)">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+                <button *ngIf="section.minimize" mat-button aria-label="cloud" (click)="onMaximize(i)">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="section-preview" *ngIf="!section.minimize">
+            <mat-grid-list cols="2" rowHeight="14:1">
+                <mat-grid-tile *ngFor="let entry of section.numberEntries">
+                    <div fxLayout="row" fxLayoutAlign="start stretch" class="card-block">
+                        <div fxLayout="row" fxLayoutAlign="space-around stretch" class="question">
+                            <div class="formula">
+                                {{entry.num1}}
+                            </div>
+                            <div class="formula">
+                                {{entry.operator}}
+                            </div>
+                            <div class="formula">
+                                {{entry.num2}}
+                            </div>
+                            <div class="formula">
+                                =
+                            </div>
+                            <mat-form-field class="answer">
+                                <input matInput disabled="true">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
         </div>
     </div>
-
-    <div class="shuffle-bar">
-        <mat-slide-toggle [(ngModel)]="shouldShuffle" labelPosition='before'>
-            Do you want to shuffle questions?
-        </mat-slide-toggle>
-    </div>
-
-    <button mat-flat-button color="primary" aria-label="cloud" (click)="onStart()">
+    <button mat-button color="primary" class="create-button font-hero" aria-label="cloud" (click)="onAddNewSection()">
+        create new section
+        <mat-icon>add</mat-icon>
+    </button>
+    <button mat-button color="primary" aria-label="cloud" class="create-button font-hero"
+        [disabled]="shouldDisableStart()" (click)="onStart()">
         Start
         <mat-icon>play_circle_outline</mat-icon>
     </button>

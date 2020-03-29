@@ -16,6 +16,9 @@ export interface NumberEntry {
 
 export interface SectionEntry {
   numberEntries: NumberEntry[];
+  shuffle: boolean;
+  minimize: boolean;
+  showWidget: boolean;
 }
 
 @Injectable({

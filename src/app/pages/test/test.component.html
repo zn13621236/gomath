@@ -4,7 +4,6 @@
         <mat-card-title>Report card</mat-card-title>
         <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
     </mat-card-header>
-    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
 
     <!-- maybe a chart here -->
     <mat-card-content>
@@ -27,45 +26,108 @@
 </mat-card>
 
 <div class="entry">
-    <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
+    <ng-container *ngIf="!isSubmitted">
         <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
             <div class="divider"></div>
-            <div class="bold font-large"> section {{i+1}}</div>
+            <div class="bold font-large"> section {{currentIndex+1}}</div>
             <div class="divider"></div>
         </div>
-        <mat-grid-list cols="2" rowHeight="6:1">
-            <mat-grid-tile *ngFor="let entry of section.numberEntries">
-                <div fxLayout="row" fxLayoutAlign="start stretch" class="card-block">
-                    <div fxLayout="row" fxLayoutAlign="start stretch" class="question">
-                        <div class="formula">
-                            {{entry.num1}}
+        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+
+            <button mat-icon-button color="primary" [disabled]="currentIndex===0" (click)="onClickBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div class="test-content">
+                <mat-grid-list cols="2" rowHeight="6:1">
+                    <mat-grid-tile *ngFor="let entry of sections[currentIndex].numberEntries">
+                        <div fxLayout="row" fxLayoutAlign="start stretch" class="card-block">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" class="question">
+                                <div class="formula">
+                                    {{entry.num1}}
+                                </div>
+                                <div class="formula">
+                                    {{entry.operator}}
+                                </div>
+                                <div class="formula">
+                                    {{entry.num2}}
+                                </div>
+                                <div class="formula">
+                                    =
+                                </div>
+                                <mat-form-field class="answer">
+                                    <input matInput [(ngModel)]="entry.answer" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="isSubmitted">
+                                <mat-icon *ngIf="check(entry)" class="material-icons md-42 done-icon result">thumb_up
+                                </mat-icon>
+                                <mat-icon *ngIf="!check(entry)" class="material-icons md-42 wrong-icon result">clear
+                                </mat-icon>
+                            </div>
                         </div>
-                        <div class="formula">
-                            {{entry.operator}}
-                        </div>
-                        <div class="formula">
-                            {{entry.num2}}
-                        </div>
-                        <div class="formula">
-                            =
-                        </div>
-                        <mat-form-field class="answer">
-                            <input matInput [(ngModel)]="entry.answer" autocomplete="off">
-                        </mat-form-field>
-                    </div>
-                    <div *ngIf="isSubmitted">
-                        <mat-icon *ngIf="check(entry)" class="material-icons md-42 done-icon result">thumb_up</mat-icon>
-                        <mat-icon *ngIf="!check(entry)" class="material-icons md-42 wrong-icon result">clear</mat-icon>
-                    </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+
+            <button mat-icon-button color="primary" [disabled]="currentIndex===sections.length-1"
+                (click)="onClickNext()">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+
+        </div>
+
+        <div *ngIf="currentIndex===sections.length-1" class="submit-section">
+            <button class="submit" mat-raised-button color="primary" aria-label="cloud" [disabled]="isSubmitted"
+                (click)="onSubmit()">
+                submit
+            </button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="isSubmitted">
+        <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
+            <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
+                <div class="divider"></div>
+                <div class="bold font-large"> section {{i}}</div>
+                <div class="divider"></div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                <button mat-icon-button color="primary" [disabled]="currentIndex===0" (click)="onClickBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <div class="test-content">
+                    <mat-grid-list cols="2" rowHeight="6:1">
+                        <mat-grid-tile *ngFor="let entry of section.numberEntries">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" class="card-block">
+                                <div fxLayout="row" fxLayoutAlign="start stretch" class="question">
+                                    <div class="formula">
+                                        {{entry.num1}}
+                                    </div>
+                                    <div class="formula">
+                                        {{entry.operator}}
+                                    </div>
+                                    <div class="formula">
+                                        {{entry.num2}}
+                                    </div>
+                                    <div class="formula">
+                                        =
+                                    </div>
+                                    <mat-form-field class="answer">
+                                        <input matInput [(ngModel)]="entry.answer" autocomplete="off">
+                                    </mat-form-field>
+                                </div>
+                                <div *ngIf="isSubmitted">
+                                    <mat-icon *ngIf="check(entry)" class="material-icons md-42 done-icon result">
+                                        thumb_up
+                                    </mat-icon>
+                                    <mat-icon *ngIf="!check(entry)" class="material-icons md-42 wrong-icon result">clear
+                                    </mat-icon>
+                                </div>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
                 </div>
-            </mat-grid-tile>
+            </div>
+        </div>
+    </ng-container>
 
-        </mat-grid-list>
-    </div>
-
-    <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="submit-section">
-        <button class="submit" mat-raised-button color="primary" aria-label="cloud" [disabled]="isSubmitted" (click)="onSubmit()">
-            submit
-        </button>
-    </div>
 </div>

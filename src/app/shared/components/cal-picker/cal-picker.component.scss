@@ -1,0 +1,33 @@
+.cal-widget {
+  position: relative;
+
+  .expanding-area {
+    z-index: 999;
+    width: auto;
+    padding: 20px;
+    background-color: white;
+    position: absolute;
+    right: -84px;
+    top: 38px;
+
+    .tab-content {
+        padding: 10px;
+    }
+  }
+
+  .number-button {
+    float: left;
+  }
+
+  .divide {
+      width: 30px;
+  }
+
+  .divide-button {
+      width: 15px;
+  }
+
+  .highlight {
+      background-color: #ffff;
+  }
+}
