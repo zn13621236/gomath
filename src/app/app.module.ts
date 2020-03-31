@@ -26,6 +26,7 @@ import { StartTestComponent } from './pages/test/start-test/start-test.component
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { CalPickerComponent } from './shared/components/cal-picker/cal-picker.component';
 
@@ -59,6 +60,7 @@ import { CalPickerComponent } from './shared/components/cal-picker/cal-picker.co
     MatTabsModule,
     MatTooltipModule,
     MatToolbarModule,
+    MatProgressBarModule,
     FormsModule,
     FlexLayoutModule
   ],

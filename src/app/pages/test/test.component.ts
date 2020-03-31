@@ -26,6 +26,8 @@ export class TestComponent implements OnInit {
   public isSubmitted: boolean = false;
   public startTime: any = moment();
 
+  public progress: number = 0;
+
   public result: Result = { right: 0, wrong: 0, duration: null };
 
   public constructor(
@@ -52,6 +54,20 @@ export class TestComponent implements OnInit {
 
   public onClickBack() {
     this.currentIndex -= 1;
+  }
+
+  public calculateProgress() {
+    let total = 0;
+    let answered = 0;
+    for (const section of this.sections) {
+      for (const question of section.numberEntries) {
+        total++;
+        if (question.answer) {
+          answered++;
+        }
+      }
+    }
+    this.progress = answered / total * 100;
   }
 
   public onSubmit() {

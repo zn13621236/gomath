@@ -27,6 +27,9 @@
 
 <div class="entry">
     <ng-container *ngIf="!isSubmitted">
+        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
         <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
             <div class="divider"></div>
             <div class="bold font-large"> section {{currentIndex+1}}</div>
@@ -55,7 +58,7 @@
                                     =
                                 </div>
                                 <mat-form-field class="answer">
-                                    <input matInput [(ngModel)]="entry.answer" autocomplete="off">
+                                    <input matInput [(ngModel)]="entry.answer" autocomplete="off" (blur)="calculateProgress()">
                                 </mat-form-field>
                             </div>
                             <div *ngIf="isSubmitted">
@@ -91,9 +94,6 @@
                 <div class="divider"></div>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                <button mat-icon-button color="primary" [disabled]="currentIndex===0" (click)="onClickBack()">
-                    <mat-icon>arrow_back</mat-icon>
-                </button>
                 <div class="test-content">
                     <mat-grid-list cols="2" rowHeight="6:1">
                         <mat-grid-tile *ngFor="let entry of section.numberEntries">
