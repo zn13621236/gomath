@@ -45,7 +45,7 @@ export class SetupComponent implements OnInit {
     let curSection = this.sections[index];
     curSection.shuffle = value;
     if (curSection.numberEntries.length > 0) {
-      if (curSection.shuffle) {
+      if (curSection.shuffle || curSection.numberEntries[0].num2 > 10) {
         shuffle(curSection.numberEntries);
       } else {
         curSection.numberEntries = this.prepareNumberEntry({ name: '', value: curSection.numberEntries[0].num2, operator: curSection.numberEntries[0].operator })

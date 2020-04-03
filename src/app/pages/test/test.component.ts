@@ -11,6 +11,7 @@ export interface Result {
   right: number;
   wrong: number;
   duration: string;
+  durations: string[];
 }
 
 @Component({
@@ -24,11 +25,12 @@ export class TestComponent implements OnInit {
 
   public wrongEntries: NumberEntry[] = [];
   public isSubmitted: boolean = false;
+  public totalStartTime: any = moment();
   public startTime: any = moment();
 
   public progress: number = 0;
 
-  public result: Result = { right: 0, wrong: 0, duration: null };
+  public result: Result = { right: 0, wrong: 0, duration: null, durations: [] };
 
   public constructor(
     public router: Router,
@@ -39,17 +41,22 @@ export class TestComponent implements OnInit {
   public ngOnInit(): void {
     this.sections = [...this.sectionService.getSections()];
     const dialogRef = this.dialog.open(StartTestComponent, {
-      width: '250px',
+      width: '400px',
       data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.startTime = moment();
+      this.totalStartTime = moment();
     });
   }
 
   public onClickNext() {
+    let curSection = this.sections[this.currentIndex];
+    curSection.startTime = this.startTime;
+    curSection.endTime = moment();
     this.currentIndex += 1;
+    this.startTime = moment();
   }
 
   public onClickBack() {
@@ -71,8 +78,13 @@ export class TestComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.isSubmitted = true;
 
+    let curSection = this.sections[this.currentIndex];
+    curSection.startTime = this.startTime;
+    curSection.endTime = moment();
+
+    this.isSubmitted = true;
+    
     this.summarize();
   }
 
@@ -127,9 +139,11 @@ export class TestComponent implements OnInit {
   }
 
   private summarize() {
-    this.result.duration = moment().diff(this.startTime, 'minutes') + 'minutes';
+    this.result.duration = moment().diff(this.totalStartTime, 'minutes') + 'minutes';
 
     for (const section of this.sections) {
+      this.result.durations.push(section.startTime.diff(section.endTime, 'minutes') + 'minutes');
+
       for (const entry of section.numberEntries) {
         if (this.check(entry)) {
           this.result.right++;

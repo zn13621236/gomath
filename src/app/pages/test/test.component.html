@@ -17,6 +17,9 @@
             <div>
                 Duration: {{result.duration}}
             </div>
+            <ng-container *ngFor="let dur of result.durations; let i = index">
+                Section {{i+1}}: {{dur}}
+            </ng-container>
         </div>
     </mat-card-content>
     <mat-card-actions>
@@ -27,9 +30,12 @@
 
 <div class="entry">
     <ng-container *ngIf="!isSubmitted">
-        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        <div>
+            <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        </div>
+
         <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
             <div class="divider"></div>
             <div class="bold font-large"> section {{currentIndex+1}}</div>
@@ -37,9 +43,9 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="space-evenly center">
 
-            <button mat-icon-button color="primary" [disabled]="currentIndex===0" (click)="onClickBack()">
+            <!-- <button mat-icon-button color="primary" [disabled]="currentIndex===0" (click)="onClickBack()">
                 <mat-icon>arrow_back</mat-icon>
-            </button>
+            </button> -->
             <div class="test-content">
                 <mat-grid-list cols="2" rowHeight="6:1">
                     <mat-grid-tile *ngFor="let entry of sections[currentIndex].numberEntries">
@@ -58,7 +64,8 @@
                                     =
                                 </div>
                                 <mat-form-field class="answer">
-                                    <input matInput [(ngModel)]="entry.answer" autocomplete="off" (blur)="calculateProgress()">
+                                    <input matInput [(ngModel)]="entry.answer" autocomplete="off"
+                                        (blur)="calculateProgress()">
                                 </mat-form-field>
                             </div>
                             <div *ngIf="isSubmitted">
@@ -90,7 +97,7 @@
         <div *ngFor="let section of sections; let i=index" fxLayout="column" fxLayoutAlign="start stretch">
             <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="title-section">
                 <div class="divider"></div>
-                <div class="bold font-large"> section {{i}}</div>
+                <div class="bold font-large"> section {{i+1}}</div>
                 <div class="divider"></div>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-evenly center">

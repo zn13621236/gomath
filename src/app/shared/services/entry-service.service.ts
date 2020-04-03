@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 export enum Operator {
   Plus = '+',
@@ -19,6 +20,8 @@ export interface SectionEntry {
   shuffle: boolean;
   minimize: boolean;
   showWidget: boolean;
+  startTime?: any;
+  endTime?: any;
 }
 
 @Injectable({
